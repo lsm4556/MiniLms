@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>메인 페이지</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+    <style>
+        /* 슬라이더를 감싸는 영역의 스타일 */
+        .home_slider {
+            width: 100%; /* 슬라이더를 감싸는 요소의 너비 */
+            max-width: 600px; /* 슬라이더의 최대 너비 */
+            margin: 0 auto; /* 가운데 정렬을 위한 왼쪽과 오른쪽 마진 자동 설정 */
+        }
+
+        /* 슬라이더 내 이미지의 스타일 */
+        .home_slider .bxslider img {
+            width: 100%; /* 슬라이더 내 이미지의 너비를 100%로 설정하여 전체 너비를 가지도록 함 */
+        }
+
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+<h1>메인 페이지 </h1>
+<div th:replace="/fragments/layout.html :: fragment-body-menu"></div>
+
+<div class="home_slider">
+    <ul class="bxslider">
+
+        <li th:each="banner : ${banners}">
+            <a th:href="${banner.targetUrl}" th:target="${banner.bannerTargetType}">
+                <img th:src="@{|${banner.urlFilename}|}" th:alt="${banner.bannerName}" />
+            </a>
+        </li>
+    </ul>
+</div>
+
+<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('.bxslider').bxSlider({
+            touchEnabled : (navigator.maxTouchPoints > 0)
+        });
+    });
+</script>
+</body>
+</html>
